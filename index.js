@@ -359,7 +359,7 @@ async function runAutoSwap() {
       const randomAmount = getRandomNumber(0.001, 0.01);
       const amountPrior = ethers.parseEther(randomAmount.toFixed(6));
       const isUSDC = i % 2 === 1;
-      const functionSelector = isUSDC ? "0xf3b68002";
+      const functionSelector = isUSDC ? "0xf3b68002 : "0x03b530a3";
       const swapTarget = isUSDC ? "USDC";
       try {
         const approveTx = await priorToken.approve(routerAddress, amountPrior);
