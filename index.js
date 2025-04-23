@@ -135,7 +135,7 @@ const headerBox = blessed.box({
   style: { fg: "white", bg: "default" }
 });
 
-figlet.text("NT EXHAUST".toUpperCase(), { font: "ANSI Shadow", horizontalLayout: "default" }, (err, data) => {
+figlet.text("KaRPaL".toUpperCase(), { font: "ANSI Shadow", horizontalLayout: "default" }, (err, data) => {
   if (err) headerBox.setContent("{center}{bold}KaRPaL{/bold}{/center}");
   else headerBox.setContent(`{center}{bold}{bright-cyan-fg}${data}{/bright-cyan-fg}{/bold}{/center}`);
   safeRender();
@@ -237,7 +237,6 @@ function updateWallet() {
   const shortAddress = walletInfo.address ? getShortAddress(walletInfo.address) : "N/A";
   const prior = walletInfo.balancePrior ? Number(walletInfo.balancePrior).toFixed(2) : "0.00";
   const usdc = walletInfo.balanceUSDC ? Number(walletInfo.balanceUSDC).toFixed(2) : "0.00";
-  const usdt = walletInfo.balanceUSDT ? Number(walletInfo.balanceUSDT).toFixed(2) : "0.00";
   const eth = walletInfo.balanceETH ? Number(walletInfo.balanceETH).toFixed(4) : "0.000";
   const content = `┌── Address : {bright-yellow-fg}${shortAddress}{/bright-yellow-fg}
 │   ├── ETH     : {bright-green-fg}${eth}{/bright-green-fg}
@@ -257,17 +256,17 @@ async function updateWalletData() {
     globalWallet = wallet;
     walletInfo.address = wallet.address;
 
-    const [ethBalance, balancePrior, balanceUSDC, balanceUSDT] = await Promise.all([
+    const [ethBalance, balancePrior, balanceUSDC] = await Promise.all([
       provider.getBalance(wallet.address),
       new ethers.Contract(PRIOR_ADDRESS, ERC20_ABI, provider).balanceOf(wallet.address),
       new ethers.Contract(USDC_ADDRESS, ERC20_ABI, provider).balanceOf(wallet.address),
-      new ethers.Contract(USDT_ADDRESS, ERC20_ABI, provider).balanceOf(wallet.address)
+      
     ]);
 
     walletInfo.balanceETH = ethers.formatEther(ethBalance);
     walletInfo.balancePrior = ethers.formatEther(balancePrior);
     walletInfo.balanceUSDC = ethers.formatUnits(balanceUSDC, 6);
-    walletInfo.balanceUSDT = ethers.formatUnits(balanceUSDT, 6);
+    
 
     updateWallet();
     addLog("Saldo & Wallet Updated !!", "system");
