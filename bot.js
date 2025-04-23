@@ -136,7 +136,7 @@ const headerBox = blessed.box({
 });
 
 figlet.text("NT EXHAUST".toUpperCase(), { font: "ANSI Shadow", horizontalLayout: "default" }, (err, data) => {
-  if (err) headerBox.setContent("{center}{bold}NT Exhaust{/bold}{/center}");
+  if (err) headerBox.setContent("{center}{bold}KaRPaL{/bold}{/center}");
   else headerBox.setContent(`{center}{bold}{bright-cyan-fg}${data}{/bright-cyan-fg}{/bold}{/center}`);
   safeRender();
 });
